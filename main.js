@@ -125,6 +125,7 @@ class Field {
   }
 }
 
+console.clear();
 let fieldDim1 = prompt('Enter Field Height: ');
 let fieldDim2 = prompt('Enter Field Width: ');
 let diff = prompt('Enter Difficulty from 1-100 (100 would be impossible to win): ');
