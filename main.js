@@ -102,13 +102,56 @@ class Field {
     }
     return field;
   }
+
+  updateField(diff) {
+    let newField = [];
+    for (let i=0; i<this._field.length; i++) {
+      let newLine = [];
+      for (let j=0; j<this._field[0].length; j++) {
+        let randNum = Math.floor(Math.random() * 100 + 1);
+        if(this._field[i][j] === pathCharacter) {
+          newLine.push(pathCharacter);
+        } else if (this._field[i][j] === hat) {
+          newLine.push(hat);
+        } else if (randNum <= diff) {
+          newLine.push(hole);
+        } else {
+          newLine.push(fieldCharacter);
+        }
+      }
+      newField.push(newLine);
+    }
+    this._field = newField;
+  }
 }
 
-const myField = new Field(Field.generateField(10, 5, 20));
+let fieldDim1 = prompt('Enter Field Height: ');
+let fieldDim2 = prompt('Enter Field Width: ');
+let diff = prompt('Enter Difficulty from 1-100 (100 would be impossible to win): ');
+
+const myField = new Field(Field.generateField(fieldDim1, fieldDim2, diff));
 console.clear();
+//Basic Version of Game
+/*
 while (end === false) {
   myField.print();
   let direction = prompt('Which way? ');
+  myField.changePosition(direction);
+  myField.validatePosition();
+  myField.newPositionStatus();
+  if (end === false && whoops === false) {
+    console.clear();
+  }
+  whoops = false;
+}
+*/
+//Challenge Version of Game
+while (end === false) {
+  myField.print();
+  let direction = prompt('Which way? ');
+  myField.updateField(diff);
+  console.clear();
+  myField.print();
   myField.changePosition(direction);
   myField.validatePosition();
   myField.newPositionStatus();
